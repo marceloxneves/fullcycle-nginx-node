@@ -13,7 +13,7 @@ const config = {
 
 const connection = mysql.createConnection(config);
 
-const sql = `INSERT INTO people(name) values('Fulano da Silva')`;
+const sql = `INSERT INTO people(name) values('Ze da Silva')`;
 connection.query(sql);
 
 connection.query('SELECT * FROM people', (err, rows) => {
