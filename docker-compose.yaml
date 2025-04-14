@@ -18,14 +18,14 @@ services:
       dockerfile: ./node/Dockerfile
     image: marceloxneves/node:latest
     container_name: node-app
-    #entrypoint: dockerize -wait tcp://db:3306 -timeout 10s docker-entrypoint.sh
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
     tty: true
     restart: always
     depends_on:
       - db
     #comentei para que a porta seja liberada apenas para o nginx
-    # ports:
-    #   - "3000:3000"
+    ports:
+      - "3000:3000"
     networks:
       - nginx-node-network
     volumes:
@@ -37,6 +37,7 @@ services:
       dockerfile: ./nginx/Dockerfile
     image: marceloxneves/nginx:latest
     container_name: nginx
+    entrypoint: dockerize -wait tcp://node-app:3000 -timeout 60s docker-entrypoint.sh
     depends_on:
       - node-app
     networks:
