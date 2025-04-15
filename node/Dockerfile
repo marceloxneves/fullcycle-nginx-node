@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 ENV DOCKERIZE_VERSION v0.9.3
 
-COPY . .
+COPY ./node/index.js .
 
 RUN apt-get update \
     && apt-get install -y wget \
