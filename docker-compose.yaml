@@ -1,11 +1,14 @@
 services:
   db:
     image: mysql:5.7
-    command: --innodb-use-native-aio=0
+    command: 
+      - --innodb-use-native-aio=0
+      #- --init-file /data/application/init.sql
     container_name: db
     restart: always
     tty: true
     volumes:
+      - ./db/:/docker-entrypoint-initdb.d
       - ./mysql:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=nodedb
@@ -29,8 +32,8 @@ services:
     #   - "3000:3000"
     networks:
       - nginx-node-network
-    volumes:
-      - ./node:/usr/src/app
+    # volumes:
+    #   - ./node:/usr/src/app
   
   nginx:
     build:
